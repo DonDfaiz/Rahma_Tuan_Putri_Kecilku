@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Go Out With Me?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* Background pink yang romantis */
+            background-color: #ffb6c1; 
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            max-width: 90%;
+        }
+
+        /* Perbaikan gambar agar transparan dan tidak blank hitam */
+        img {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background-color: transparent; 
+        }
+
+        h1 {
+            color: #d11a2a;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        #yes-btn {
+            background-color: #ff4d6d;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #yes-btn:hover {
+            background-color: #c9184a;
+            transform: scale(1.05);
+        }
+
+        #no-btn {
+            background-color: #f8edeb;
+            color: #ff4d6d;
+            padding: 10px 25px;
+            font-size: 1.2rem;
+            border: 2px solid #ff4d6d;
+        }
+        
+        .sub-text {
+            margin-top: 20px;
+            color: #d11a2a;
+            font-size: 1rem;
+            min-height: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-container">
+        <img id="main-img" src="https://media1.tenor.com/m/F02a3O7n8wEAAAAC/peach-goma-phone.gif" alt="Kucing Menunggu">
+        <h1 id="question">Will you go out with me?</h1>
+        
+        <div class="buttons">
+            <button id="yes-btn" onclick="sayYes()">YES</button>
+            <button id="no-btn" onclick="sayNo()">No</button>
+        </div>
+        <div class="sub-text" id="sub-text"></div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        let yesBtnSize = 1;
+        let yesPadding = 15;
+        let yesFontSize = 1.5;
+
+        // Teks penolakan yang akan muncul bergantian
+        const noTexts = [
+            "Are you sure?",
+            "Babe please :(",
+            "Don't do this to me",
+            "Heart broken </3",
+            "I'm gonna cry...",
+            "Give me a chance!",
+            "You have no choice!"
+        ];
+
+        function sayNo() {
+            noClickCount++;
+            
+            const yesBtn = document.getElementById('yes-btn');
+            const noBtn = document.getElementById('no-btn');
+            const subText = document.getElementById('sub-text');
+            const mainImg = document.getElementById('main-img');
+
+            // Mengubah GIF jika dia mulai menekan 'No'
+            mainImg.src = "https://media1.tenor.com/m/qQY_V65449oAAAAC/peach-goma-crying.gif";
+
+            if (noClickCount < 7) {
+                // Membesarkan tombol YES secara bertahap
+                yesBtnSize += 0.4;
+                yesPadding += 5;
+                yesFontSize += 0.5;
+                
+                yesBtn.style.transform = `scale(${yesBtnSize})`;
+                yesBtn.style.padding = `${yesPadding}px ${yesPadding * 2}px`;
+                yesBtn.style.fontSize = `${yesFontSize}rem`;
+
+                // Memunculkan teks rayuan
+                subText.innerText = noTexts[noClickCount - 1];
+                
+                // Mengecilkan tombol No
+                noBtn.style.transform = `scale(${1 - (noClickCount * 0.1)})`;
+            }
+
+            // Pada klik ke-7, hilangkan tombol No sepenuhnya
+            if (noClickCount >= 7) {
+                noBtn.style.display = 'none';
+                subText.innerText = "You literally have no choice now <3";
+            }
+        }
+
+        function sayYes() {
+            const container = document.getElementById('main-container');
+            // Menampilkan GIF berpelukan yang sangat romantis + Pesan sukses
+            container.innerHTML = `
+                <img src="https://media1.tenor.com/m/J7t6T8zF2k8AAAAC/mochi-peach-cat.gif" alt="Romantic Hug" style="width: 300px; height: 300px;">
+                <h1>YAY! I Love You! ❤️</h1>
+                <p style="color: #d11a2a; font-size: 1.2rem; font-style: italic;">Thank you for making me the happiest person!</p>
+            `;
+        }
+    </script>
+</body>
+</html>
+
