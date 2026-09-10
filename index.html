@@ -1,175 +1,289 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Go Out With Me?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For You 💖</title>
+    <!-- Font Pixel Art -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            /* Background pink yang romantis */
-            background-color: #ffb6c1; 
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-            overflow: hidden;
+            box-sizing: border-box;
         }
 
-        .container {
+        body {
+            background-color: #ffb3d9;
+            /* Background awan pink ala game retro */
+            background-image: 
+                radial-gradient(circle at 15% 50%, #ff80bf 10%, transparent 50%),
+                radial-gradient(circle at 85% 30%, #ff99cc 15%, transparent 50%);
+            font-family: 'VT323', monospace;
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
-            max-width: 90%;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Perbaikan gambar agar transparan dan tidak blank hitam */
-        img {
-            width: 250px;
-            height: 250px;
-            object-fit: contain;
+        /* Container Utama */
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Bingkai Gambar Pixel */
+        .image-frame {
+            width: 180px;
+            height: 180px;
+            background: #fff;
+            padding: 10px;
             border-radius: 15px;
-            margin-bottom: 20px;
-            background-color: transparent; 
+            box-shadow: 
+                -4px 0 0 0 #d61c59,
+                4px 0 0 0 #d61c59,
+                0 -4px 0 0 #d61c59,
+                0 4px 0 0 #d61c59;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff0f5;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .image-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         h1 {
-            color: #d11a2a;
-            font-size: 2.2rem;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #d61c59;
+            font-size: 3rem;
+            text-shadow: 2px 2px 0px #fff;
+            margin-bottom: 40px;
+            line-height: 1.1;
         }
 
-        .buttons {
+        /* Layout Tombol Flexbox - Mencegah tumpang tindih */
+        .btn-container {
             display: flex;
-            gap: 20px;
             align-items: center;
             justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap; /* Kunci agar rapi di HP */
+            width: 100%;
+            min-height: 120px;
         }
 
         button {
+            font-family: 'VT323', monospace;
             cursor: pointer;
             border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            font-family: inherit;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        #yes-btn {
-            background-color: #ff4d6d;
+        /* Tombol YES */
+        .yes-btn {
+            background-color: #ff1a75;
             color: white;
-            padding: 15px 40px;
+            font-size: 2.2rem;
+            padding: 12px 30px;
+            border-radius: 8px;
+            box-shadow: 
+                0 6px 0 #b30047,
+                0 6px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .yes-btn:active {
+            transform: translateY(6px) !important;
+            box-shadow: 0 0 0 #b30047, 0 0 5px rgba(0,0,0,0.2) !important;
+        }
+
+        /* Tombol NO */
+        .no-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .no-btn {
+            background-color: #ffffff;
+            color: #d61c59;
             font-size: 1.5rem;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            padding: 8px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 #d61c59;
         }
 
-        #yes-btn:hover {
-            background-color: #c9184a;
-            transform: scale(1.05);
+        .no-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #d61c59;
         }
 
-        #no-btn {
-            background-color: #f8edeb;
-            color: #ff4d6d;
-            padding: 10px 25px;
-            font-size: 1.2rem;
-            border: 2px solid #ff4d6d;
-        }
-        
         .sub-text {
-            margin-top: 20px;
-            color: #d11a2a;
-            font-size: 1rem;
-            min-height: 20px;
-            font-style: italic;
-            font-weight: bold;
+            color: #d61c59;
+            font-size: 1.2rem;
+            margin-top: 8px;
+            text-shadow: 1px 1px 0px #fff;
+            height: 20px;
+        }
+
+        /* Animasi Hati Jatuh */
+        .heart {
+            position: absolute;
+            top: -10vh;
+            color: #ff4d94;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Responsif HP */
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            .image-frame { width: 160px; height: 160px; margin-bottom: 20px; }
+            .btn-container { gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="main-container">
-        <img id="main-img" src="https://media1.tenor.com/m/F02a3O7n8wEAAAAC/peach-goma-phone.gif" alt="Kucing Menunggu">
-        <h1 id="question">Will you go out with me?</h1>
-        
-        <div class="buttons">
-            <button id="yes-btn" onclick="sayYes()">YES</button>
-            <button id="no-btn" onclick="sayNo()">No</button>
+    <div class="card" id="card">
+        <div class="image-frame">
+            <!-- Gambar Awal (Kucing Memohon) -->
+            <img id="main-gif" src="https://media.tenor.com/F02a3O7n8wEAAAAi/peach-goma-phone.gif" alt="Cute Cat" onerror="this.src='https://i.imgur.com/gK1q5u3.gif'">
         </div>
-        <div class="sub-text" id="sub-text"></div>
+
+        <h1 id="title">Will you go out with me?</h1>
+
+        <div class="btn-container">
+            <!-- Tombol YES -->
+            <button class="yes-btn" id="yes-btn" onclick="accept()">YES ✦</button>
+            
+            <!-- Tombol NO dan Teks bawahnya -->
+            <div class="no-wrapper" id="no-wrapper">
+                <button class="no-btn" id="no-btn" onclick="decline()">No</button>
+                <div class="sub-text" id="sub-text"></div>
+            </div>
+        </div>
     </div>
 
     <script>
-        let noClickCount = 0;
-        let yesBtnSize = 1;
-        let yesPadding = 15;
-        let yesFontSize = 1.5;
+        let clickCount = 0;
+        
+        // Ukuran awal tombol YES
+        let yesFontSize = 2.2; 
+        let yesPaddingV = 12;
+        let yesPaddingH = 30;
 
-        // Teks penolakan yang akan muncul bergantian
-        const noTexts = [
+        const texts = [
+            "No",
             "Are you sure?",
             "Babe please :(",
             "Don't do this to me",
-            "Heart broken </3",
             "I'm gonna cry...",
             "Give me a chance!",
-            "You have no choice!"
+            "Heart broken </3"
         ];
 
-        function sayNo() {
-            noClickCount++;
+        function decline() {
+            clickCount++;
             
             const yesBtn = document.getElementById('yes-btn');
             const noBtn = document.getElementById('no-btn');
             const subText = document.getElementById('sub-text');
-            const mainImg = document.getElementById('main-img');
+            const noWrapper = document.getElementById('no-wrapper');
 
-            // Mengubah GIF jika dia mulai menekan 'No'
-            mainImg.src = "https://media1.tenor.com/m/qQY_V65449oAAAAC/peach-goma-crying.gif";
+            // Membesarkan tombol YES secara dinamis tanpa merusak layout flexbox
+            yesFontSize += 0.8;
+            yesPaddingV += 5;
+            yesPaddingH += 15;
+            
+            yesBtn.style.fontSize = `${yesFontSize}rem`;
+            yesBtn.style.padding = `${yesPaddingV}px ${yesPaddingH}px`;
 
-            if (noClickCount < 7) {
-                // Membesarkan tombol YES secara bertahap
-                yesBtnSize += 0.4;
-                yesPadding += 5;
-                yesFontSize += 0.5;
+            // Jika belum 7 kali klik
+            if (clickCount < 7) {
+                noBtn.innerText = texts[clickCount];
                 
-                yesBtn.style.transform = `scale(${yesBtnSize})`;
-                yesBtn.style.padding = `${yesPadding}px ${yesPadding * 2}px`;
-                yesBtn.style.fontSize = `${yesFontSize}rem`;
-
-                // Memunculkan teks rayuan
-                subText.innerText = noTexts[noClickCount - 1];
-                
-                // Mengecilkan tombol No
-                noBtn.style.transform = `scale(${1 - (noClickCount * 0.1)})`;
-            }
-
-            // Pada klik ke-7, hilangkan tombol No sepenuhnya
-            if (noClickCount >= 7) {
-                noBtn.style.display = 'none';
-                subText.innerText = "You literally have no choice now <3";
+                // Tambahkan sub-text hanya di momen tertentu seperti gambar referensi
+                if (clickCount === 2 || clickCount === 6) {
+                    subText.innerText = texts[clickCount];
+                } else {
+                    subText.innerText = "";
+                }
+            } 
+            // Jika sudah 7 kali klik
+            else {
+                noWrapper.style.opacity = '0';
+                setTimeout(() => {
+                    noWrapper.style.display = 'none';
+                }, 500); // Hilang secara halus
             }
         }
 
-        function sayYes() {
-            const container = document.getElementById('main-container');
-            // Menampilkan GIF berpelukan yang sangat romantis + Pesan sukses
-            container.innerHTML = `
-                <img src="https://media1.tenor.com/m/J7t6T8zF2k8AAAAC/mochi-peach-cat.gif" alt="Romantic Hug" style="width: 300px; height: 300px;">
-                <h1>YAY! I Love You! ❤️</h1>
-                <p style="color: #d11a2a; font-size: 1.2rem; font-style: italic;">Thank you for making me the happiest person!</p>
+        function accept() {
+            const card = document.getElementById('card');
+            
+            // Ubah tampilan menjadi layar sukses dengan animasi HUG (pelukan) romantis
+            card.innerHTML = `
+                <div class="image-frame" style="width: 220px; height: 220px;">
+                    <img src="https://media.tenor.com/9nFkS_J_TNgAAAAi/peach-and-goma-peach-goma.gif" alt="Romantic Hug" onerror="this.src='https://i.imgur.com/ZMBG0V6.gif'">
+                </div>
+                <h1 style="font-size: 3.5rem; margin-top: 10px;">YAYYY! I love you! ❤️</h1>
+                <p style="color: #d61c59; font-size: 1.5rem; font-weight: bold; margin-top: 10px;">I'll see you soon, babe! ✨</p>
             `;
+
+            // Memicu hujan hati saat diterima
+            setInterval(createHeart, 200);
         }
+
+        // Animasi Hati
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Menambahkan sedikit hati sebagai background default
+        setInterval(() => {
+            if(document.querySelectorAll('.heart').length < 15) {
+                createHeart();
+            }
+        }, 800);
     </script>
 </body>
 </html>
-
