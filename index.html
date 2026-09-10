@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For You 💖</title>
-    <!-- Font Pixel Art -->
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         * {
@@ -15,7 +14,6 @@
 
         body {
             background-color: #ffb3d9;
-            /* Background awan pink ala game retro */
             background-image: 
                 radial-gradient(circle at 15% 50%, #ff80bf 10%, transparent 50%),
                 radial-gradient(circle at 85% 30%, #ff99cc 15%, transparent 50%);
@@ -29,7 +27,6 @@
             position: relative;
         }
 
-        /* Container Utama */
         .card {
             display: flex;
             flex-direction: column;
@@ -40,7 +37,6 @@
             padding: 20px;
         }
 
-        /* Bingkai Gambar Pixel */
         .image-frame {
             width: 180px;
             height: 180px;
@@ -80,13 +76,12 @@
             line-height: 1.1;
         }
 
-        /* Layout Tombol Flexbox - Mencegah tumpang tindih */
         .btn-container {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            flex-wrap: wrap; /* Kunci agar rapi di HP */
+            flex-wrap: wrap;
             width: 100%;
             min-height: 120px;
         }
@@ -100,7 +95,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Tombol YES */
         .yes-btn {
             background-color: #ff1a75;
             color: white;
@@ -118,7 +112,6 @@
             box-shadow: 0 0 0 #b30047, 0 0 5px rgba(0,0,0,0.2) !important;
         }
 
-        /* Tombol NO */
         .no-wrapper {
             display: flex;
             flex-direction: column;
@@ -148,7 +141,6 @@
             height: 20px;
         }
 
-        /* Animasi Hati Jatuh */
         .heart {
             position: absolute;
             top: -10vh;
@@ -163,7 +155,6 @@
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* Responsif HP */
         @media (max-width: 480px) {
             h1 { font-size: 2.5rem; }
             .image-frame { width: 160px; height: 160px; margin-bottom: 20px; }
@@ -175,17 +166,14 @@
 
     <div class="card" id="card">
         <div class="image-frame">
-            <!-- Gambar Awal (Kucing Memohon) -->
-            <img id="main-gif" src="https://media.tenor.com/F02a3O7n8wEAAAAi/peach-goma-phone.gif" alt="Cute Cat" onerror="this.src='https://i.imgur.com/gK1q5u3.gif'">
+            <!-- MEMANGGIL FILE GAMBAR LOKAL -->
+            <img id="main-gif" src="kucing-mohon.gif" alt="Cute Cat">
         </div>
 
         <h1 id="title">Will you go out with me?</h1>
 
         <div class="btn-container">
-            <!-- Tombol YES -->
             <button class="yes-btn" id="yes-btn" onclick="accept()">YES ✦</button>
-            
-            <!-- Tombol NO dan Teks bawahnya -->
             <div class="no-wrapper" id="no-wrapper">
                 <button class="no-btn" id="no-btn" onclick="decline()">No</button>
                 <div class="sub-text" id="sub-text"></div>
@@ -195,8 +183,6 @@
 
     <script>
         let clickCount = 0;
-        
-        // Ukuran awal tombol YES
         let yesFontSize = 2.2; 
         let yesPaddingV = 12;
         let yesPaddingH = 30;
@@ -219,7 +205,6 @@
             const subText = document.getElementById('sub-text');
             const noWrapper = document.getElementById('no-wrapper');
 
-            // Membesarkan tombol YES secara dinamis tanpa merusak layout flexbox
             yesFontSize += 0.8;
             yesPaddingV += 5;
             yesPaddingH += 15;
@@ -227,43 +212,36 @@
             yesBtn.style.fontSize = `${yesFontSize}rem`;
             yesBtn.style.padding = `${yesPaddingV}px ${yesPaddingH}px`;
 
-            // Jika belum 7 kali klik
             if (clickCount < 7) {
                 noBtn.innerText = texts[clickCount];
-                
-                // Tambahkan sub-text hanya di momen tertentu seperti gambar referensi
                 if (clickCount === 2 || clickCount === 6) {
                     subText.innerText = texts[clickCount];
                 } else {
                     subText.innerText = "";
                 }
-            } 
-            // Jika sudah 7 kali klik
-            else {
+            } else {
                 noWrapper.style.opacity = '0';
                 setTimeout(() => {
                     noWrapper.style.display = 'none';
-                }, 500); // Hilang secara halus
+                }, 500); 
             }
         }
 
         function accept() {
             const card = document.getElementById('card');
             
-            // Ubah tampilan menjadi layar sukses dengan animasi HUG (pelukan) romantis
+            // MEMANGGIL GAMBAR PELUK LOKAL SAAT SUKSES
             card.innerHTML = `
                 <div class="image-frame" style="width: 220px; height: 220px;">
-                    <img src="https://media.tenor.com/9nFkS_J_TNgAAAAi/peach-and-goma-peach-goma.gif" alt="Romantic Hug" onerror="this.src='https://i.imgur.com/ZMBG0V6.gif'">
+                    <img src="kucing-peluk.gif" alt="Romantic Hug">
                 </div>
                 <h1 style="font-size: 3.5rem; margin-top: 10px;">YAYYY! I love you! ❤️</h1>
                 <p style="color: #d61c59; font-size: 1.5rem; font-weight: bold; margin-top: 10px;">I'll see you soon, babe! ✨</p>
             `;
 
-            // Memicu hujan hati saat diterima
             setInterval(createHeart, 200);
         }
 
-        // Animasi Hati
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -278,7 +256,6 @@
             }, 5000);
         }
 
-        // Menambahkan sedikit hati sebagai background default
         setInterval(() => {
             if(document.querySelectorAll('.heart').length < 15) {
                 createHeart();
